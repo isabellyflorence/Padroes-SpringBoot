@@ -8,57 +8,6 @@ Este projeto é um exemplo de aplicação Spring Boot que demonstra a implementa
 
 ---
 
-## Estrutura do Projeto
-
-padroes/
-│
-├── src/main/java/com/exemplo/padroes/
-│ ├── PadroesApplication.java
-│ ├── controller/
-│ │ └── PagamentoController.java
-│ ├── service/
-│ │ └── PagamentoService.java
-│ └── pagamento/
-│ ├── PagamentoStrategy.java
-│ ├── Pix.java
-│ ├── Cartao.java
-│ └── Boleto.java
-│
-├── src/main/resources/
-│ └── application.properties
-│
-└── pom.xml
----
-
-## Diagrama de Classes
-
-```plaintext```
-             +------------------------+
-             | PagamentoController    |  <-- Facade
-             +------------------------+
-             | - pagamentoService     |
-             +------------------------+
-             | + pagar(metodo, valor)|
-             +-----------+------------+
-                         |
-                         v
-             +------------------------+
-             | PagamentoService       |  <-- Singleton + Strategy
-             +------------------------+
-             | - estrategias: Map     |
-             +------------------------+
-             | + processarPagamento() |
-             +-----------+------------+
-                         |
-           +-------------+-------------+
-           |             |             |
-           v             v             v
-     +---------+    +---------+    +---------+
-     | Pix     |    | Cartao  |    | Boleto  |   <-- Strategy
-     +---------+    +---------+    +---------+
-     | + pagar()|   | + pagar()|   | + pagar()|
-     +---------+    +---------+    +---------+
-     
 O PagamentoController expõe a API REST e atua como Facade.
 
 O PagamentoService gerencia as estratégias de pagamento e é injetado pelo Spring (Singleton).
